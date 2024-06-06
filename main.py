@@ -38,7 +38,7 @@ with col1:
     model = st.radio("Select Model", ["gpt-3.5-turbo", "gpt-4"])
 with col2:
     temperature = float(st.select_slider("Temperature", options=[
-        0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]))
+        0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], value=0.5))
 with col3:
     max_tokens = int(st.number_input(
         "Max tokens", step=100, min_value=500, max_value=1000))
