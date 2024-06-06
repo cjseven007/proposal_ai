@@ -1,6 +1,6 @@
 from openai import OpenAI
 # from dotenv import load_dotenv, find_dotenv
-import os
+# import os
 import prompts
 from event_details import EventDetails
 import streamlit as st
