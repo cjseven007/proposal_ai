@@ -1,4 +1,2 @@
 openai
-dotenv
 streamlit
-os
