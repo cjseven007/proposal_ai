@@ -41,7 +41,7 @@ with col2:
         0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]))
 with col3:
     max_tokens = int(st.number_input(
-        "Max tokens", step=50, min_value=100, max_value=1000))
+        "Max tokens", step=100, min_value=500, max_value=1000))
 with col4:
     event_name = st.text_input("Event name")
     description = st.text_area("Description")
