@@ -1,6 +1,4 @@
 from openai import OpenAI
-# from dotenv import load_dotenv, find_dotenv
-# import os
 import prompts
 from event_details import EventDetails
 import streamlit as st
@@ -30,43 +28,52 @@ def get_summary():
 
 
 # User Interface
+st.set_page_config(layout="wide")
 st.title('Proposal AI')
+st.markdown(
+    "Tired of writing proposal? This is an AI dedicated to writing a proposal.")
+st.divider()
+# Creating columns for Input and Output
+# Divide the screen into two columns
+col_input, col_output = st.columns((1, 1))
 
-col1, col2, col3 = st.columns(3)
-col4, col5 = st.columns(2)
-with col1:
-    model = st.radio("Select Model", ["gpt-3.5-turbo", "gpt-4"])
-with col2:
-    temperature = float(st.select_slider("Temperature", options=[
-        0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], value=0.5))
-with col3:
-    max_tokens = int(st.number_input(
-        "Max tokens", step=100, min_value=500, max_value=1000))
-with col4:
-    event_name = st.text_input("Event name")
-    description = st.text_area("Description")
-    club = st.text_input("Club")
-
-with col5:
-    date = st.date_input("Date")
-    start_time = st.time_input("Start Time")
-    end_time = st.time_input("End Time")
-    venue = st.text_input("Venue")
-
-event = EventDetails(
-    title=event_name,
-    description=description,
-    club=club,
-    date=date,
-    start_time=start_time,
-    end_time=end_time,
-    venue=venue
-)
+with col_input:
+    col1, col2, col3 = st.columns(3)
+    col4, col5 = st.columns(2)
+    with col1:
+        model = st.radio("Select Model", ["gpt-3.5-turbo", "gpt-4"])
+    with col2:
+        temperature = float(st.select_slider("Temperature", options=[
+            0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], value=0.5))
+    with col3:
+        max_tokens = int(st.number_input(
+            "Max tokens", step=100, min_value=500, max_value=1000))
+    with col4:
+        event_name = st.text_input("Event name")
+        description = st.text_area("Description")
+        club = st.text_input("Club")
+    with col5:
+        date = st.date_input("Date")
+        start_time = st.time_input("Start Time")
+        end_time = st.time_input("End Time")
+        venue = st.text_input("Venue")
+    event = EventDetails(
+        title=event_name,
+        description=description,
+        club=club,
+        date=date,
+        start_time=start_time,
+        end_time=end_time,
+        venue=venue
+    )
 messages = [
     {"role": "system", "content": prompts.system_message},
     {"role": "user", "content": prompts.get_prompt(event)}
 ]
-
 st.button("Submit", on_click=get_summary)
+
+
 # Display the summary
-st.write(st.session_state.summary)
+with col_output:
+    st.text_area("AI Generated Proposal",
+                 value=st.session_state.summary, height=400)
