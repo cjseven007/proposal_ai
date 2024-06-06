@@ -1,16 +1,15 @@
 from openai import OpenAI
-from dotenv import load_dotenv, find_dotenv
+# from dotenv import load_dotenv, find_dotenv
 import os
 import prompts
 from event_details import EventDetails
 import streamlit as st
 
-_ = load_dotenv(find_dotenv())
+# _ = load_dotenv(find_dotenv())
 # Set up your OpenAI API key
 client = OpenAI(
     # this is also the default, it can be omitted
-    api_key=os.environ.get(
-        'OPENAI_API_KEY'),
+    api_key=st.secrets.openai.openai_api_key,
 )
 
 # Initialize session state for storing the summary
