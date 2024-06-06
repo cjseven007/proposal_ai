@@ -9,8 +9,7 @@ _ = load_dotenv(find_dotenv())
 # Set up your OpenAI API key
 client = OpenAI(
     # this is also the default, it can be omitted
-    api_key=os.environ.get(
-        'OPENAI_API_KEY'),
+    api_key=st.secrets.openai.openai_api_key,
 )
 
 # Initialize session state for storing the summary
